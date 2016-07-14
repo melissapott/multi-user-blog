@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- This form is used for creating new users -->
+
+{% extends "base.html" %}
+{%block content%}
+<form method="post">
+	<h1>Signup</h1>
+	<div class="form-group">
+		<label>Username:</label>
+		<input name="username" type="text" value = "{{username}}">
+		{% if username and not(user_check) %}
+			<span class = "error">That wasn't a valid user name or is already taken</span>
+		{% endif %}
+	</div>
+	<div class="form-group">	
+		<label>Password:</label>
+		<input name="password" type="password">
+		{% if password and not(password_check) %}
+			<span class = "error">That wasn't a valid password</span>
+		{% endif %}
+	</div>
+	<div class="form-group">	
+		<label>Verify Password:</label>
+		<input name="verify" type="password">
+		{% if verify and password != verify %}
+			<span style = "color: red;">Your passwords didn't match</span>
+		{% endif %}
+	</div>
+	<div class="form-group">	
+		<label>Email (optional):</label>
+		<input name="email" type = "text" value = "{{email}}">
+		{% if email and not(email_check) %}
+			<span style = "color: red;">That wasn't a valid email</span>
+		{% endif %}
+	</div>
+	<br>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
+
+</html>

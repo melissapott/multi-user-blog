@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- This file defines the html used to display a blog post.
+Each time a post is displayed, it will have a button for users to 'like' the post
+and another button to generate a modal with a form to submit a comment on a post 
+and options for editing or deleting a post.  Blog posts are sourced from "main.html"
+and comments are sourced from "comments.html" -->
+
+
+  <div class="post row col-xs-12">
+    <div class="post-heading row">
+      <div class="post-title col-xs-12">
+        <a href = "/{{post_id}}">{{p.subject}}</a>
+      </div> <!-- /.post-title -->
+      <div class="post-author col-xs-6">
+        By: {{p.author}}
+      </div> <!-- /.post-author -->
+      <div class="post-date col-xs-6">
+        {{p.created.strftime("%b %d, %Y")}}
+      </div> <!-- /.post-date -->
+    </div> <!-- /.post-heading -->
+    <div class="post-content row">
+      {{p._render_text | safe}}
+    </div> <!-- /.post-content -->
+    <div class = "post-footer row">
+      <div class="post-footer-left col-xs-6">
+        <a class="btn btn-primary" data-toggle="modal" data-target="#commentModal_{{post_id}}" href="/commentmodal?post_id={{post_id}}"><span class="glyphicon glyphicon-comment"></span></a>
+        <a href="/like?post_id={{post_id}}" class="btn btn-primary btn-sm" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+        <span class="badge">{{like_count}}</span>
+       </div>
+       <div class="post-footer-right col-xs-6"> 
+        <div class="dropdown">
+          <a class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a href="/newpost?status=edit&post_id={{post_id}}">Edit</a></li>
+              <li><a href="/newpost?status=delete&post_id={{post_id}}">Delete</a></li>
+            </ul>
+        </div> <!-- /.dropdown -->
+      </div><!--/.post-footer-right-->
+      <div id="commentList" class="comment-list col-xs-12">
+        {% for c in comments%}
+          {{c.render() | safe}}
+        {% endfor %}
+      </div><!-- /.comment-list -->
+    </div> <!-- /.post-footer -->
+  </div> <!-- /.post -->
+  <br>
+  <br>
+  <!-- Modal -->
+  <div class="modal fade" id="commentModal_{{post_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+          </div> <!-- /.modal-content -->
+      </div> <!-- /.modal-dialog -->
+  </div> <!-- /.modal -->
+
+</html>
+

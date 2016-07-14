@@ -1,0 +1,9 @@
+<!-- This template displays the main blog page -->
+
+{% extends "base.html" %}
+
+{% block content %}
+	{% for p in posts %}
+		{{ p.render() | safe }}
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- This form is used for creating new blog posts and 
+editing or deleting existing blog posts -->
+
+{% extends "base.html" %}
+{% block content %}
+{% if (status == 'edit' or status == 'delete') and author != username%}
+  <h1>You do not have authority to modify this post</h1>
+{% else %}
+<form method="post">
+  {% if status == 'edit' %}
+    <h1>Edit Post</h1>
+  {% elif status == 'delete' %}
+    <h1>Delete Post - Are you sure you want to continue?</h1>
+  {% else %}
+    <h1>New Post</h1>
+  {% endif %}
+  <div class = "form-group">
+    <label>Subject:</label>
+    <input class="form-control" type="text" name="subject" value="{{subject}}">
+  </div>
+  <div class = "form-group">
+    <label>Blog Post:</label>
+    <textarea class = "form-control" rows="10" name="content">{{content}}</textarea>
+  </div>
+  <input type="hidden" name="status" value="{{status}}">
+  <input type="hidden" name="post_id" value="{{post_id}}">
+  {% if status == 'edit' %}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a class="btn btn-primary" href="/">Cancel</a>
+  {% elif status == 'delete' %}
+    <button type="submit" class="btn btn-primary">Delete</button>
+    <a class="btn btn-primary" href="/">Cancel</a>
+  {% else %}
+    <input type="submit" class="btn btn-primary">
+  {% endif %}
+</form>
+{% endif %}
+{% endblock %}
+</html>

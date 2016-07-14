@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- This file formats and displays the comments attached to each post.
+It also contains the beginnings of the modal popups for editing
+and deleting comments...the remainder of the code for the modals is
+contained in 'commentmodal.html' to avoid duplication of code, since
+it is the same for both modal instance. -->
+
+{% block content %}
+	<div class="comment-header row">
+		<div class="col-xs-11 comment-title">
+			<span class="glyphicon glyphicon-comment"></span>
+			{{c.username}} said:
+		</div>
+		<div class="col-xs-1">
+			<div class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+				<ul class="dropdown-menu dropdown-menu-right">
+        			<li><a data-toggle="modal" data-target="#commentEditModal_{{comment_id}}" href="/commentmodal?comment_id={{comment_id}}&status=edit">Edit</a></li>
+        			<li><a data-toggle="modal" data-target="#commentDeleteModal_{{comment_id}}" href="/commentmodal?comment_id={{comment_id}}&status=delete">Delete</a></li>
+        		</ul>
+        	</div><!--/.dropdown -->
+		</div> <!-- /.col-xs-1 -->
+	</div> <!-- /.comment-header -->
+	<div class="comment-text col-xs-12">
+		{{c._render_text | safe}} 
+	</div>
+	<br>
+
+		<!-- Comment Edit Modal -->
+	<div class="modal fade" id="commentEditModal_{{comment_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	        </div> <!--/.modal-content-->
+	    </div> <!--/.modal-dialog-->
+	</div><!-- /.modal-->
+
+		<!-- Comment Delete Modal -->
+	<div class="modal fade" id="commentDeleteModal_{{comment_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	        </div> <!--/.modal-content-->
+	    </div> <!--/.modal-dialog-->
+	</div><!-- /.modal-->
+{% endblock %}
+</html>
